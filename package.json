@@ -1,0 +1,19 @@
+{
+  "name": "web-app-html",
+  "description": "",
+  "repository": "",
+  "scripts": {
+  "start": "gulp"
+  },
+  "devDependencies": {
+    "event-stream": "~3.1.5",
+    "express": "~4.1.1",
+    "gulp": "~3.9.1",
+    "gulp-clean": "~0.2.4",
+    "gulp-concat": "~2.2.0",
+    "gulp-csso": "~0.2.8",
+    "gulp-less": "~1.2.3",
+    "gulp-rename": "~1.2.0",
+    "gulp-uglify": "~0.2.1"
+  }
+}
