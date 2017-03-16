@@ -1,32 +1,96 @@
 /* ==========================================================================
    Custom styles here: Add module based styles in custom directory
    ========================================================================== */
+@import "utilities.less";
 
-   .column {
-     width: 170px;
-     float: left;
-     padding-bottom: 100px;
-   }
-   .portlet {
-     margin: 0 1em 1em 0;
-     padding: 0.3em;
-   }
-   .portlet-header {
-     padding: 0.2em 0.3em;
-     margin-bottom: 0.5em;
-     position: relative;
-   }
-   .portlet-toggle {
-     position: absolute;
-     top: 50%;
-     right: 0;
-     margin-top: -8px;
-   }
-   .portlet-content {
-     padding: 0.4em;
-   }
-   .portlet-placeholder {
-     border: 1px dotted black;
-     margin: 0 1em 1em 0;
-     height: 50px;
-   }
+  * {
+      box-sizing: border-box;
+      font-family: Sans-Serif, Helvetica, Arial ;
+  }
+
+  body {
+    background: @app-bg;
+  }
+
+  .list {
+      .border-radius;
+      float: left;
+      position: relative;
+      width: 30%;
+      padding: 8px;
+      margin: 15px 10px 0 0;
+      background: @list-bg;
+
+      &:hover {
+          box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+      }
+
+      >.close {
+            font-size: 30px;
+      }
+
+      .title {
+        padding: 0.2em 0.3em;
+        margin: 0.5em;
+        display: block;
+      }
+
+      .card {
+          position: relative;
+          border: 1px solid #eee;
+          margin: 0.5em 0;
+          padding: 0.3em;
+          background: @card-bg;
+
+             .header {
+               padding: 0.2em 0.3em;
+               margin-bottom: 0.5em;
+               display: inline-block;
+                  &>i {
+                    padding-right: 12px;
+                  }
+
+             }
+
+             .content {
+               padding: 0.4em;
+             }
+
+             .footer {
+               padding: 0.2em 0.3em;
+               margin-bottom: 0.5em;
+               display: inline-block;
+                  &>i {
+                    padding-right: 2px;
+                  }
+
+                  .tags, .user {
+                    display: inherit;
+                    margin: 5px 10px;
+                    font-size: 14px;
+                    background: #abd4de;
+                    padding: 0.4em 0.3em;
+                     i {
+                         padding-right: 12px;
+                     }
+                  }
+             }
+
+      }
+
+  }
+
+  .placeholder {
+    border: 1px dotted black;
+    margin: 0.5em 0.5em;
+    height: 50px;
+    background: rgb(249,246,206);
+  }
+
+  .close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: @close-icon;
+    z-index: 999;
+  }
