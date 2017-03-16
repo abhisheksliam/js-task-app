@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
     <head>
         <meta charset="utf-8">
@@ -8,8 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
-        <link rel="stylesheet" href="vendor/jquery-ui-1.12.1/jquery-ui.min.css">
         <link rel="stylesheet" href="css/app.css">
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -18,56 +19,144 @@
 
         <!-- Application content here -->
 
-        <div class="column">
+  <section id="content-area">
 
-          <div class="portlet">
-            <div class="portlet-header">Feeds</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-          </div>
+        <div class="list">
 
-          <div class="portlet">
-            <div class="portlet-header">News1</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-          </div>
-          <div class="portlet">
-            <div class="portlet-header">News2</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-          </div>
-          <div class="portlet">
-            <div class="portlet-header">News3</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-          </div>
+          <div class="title fixed"><strong>List Title</strong></div>
+          <i class="fa fa-times close"></i>
 
+          <div class="sortable-cards">
+            <div class="portlet card">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="header">Feeds</div>
+              </div>
+
+              <i class="fa fa-times close"></i>
+              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="user">Username</span>
+                <i class="fa fa-tag"></i><span class="tags">Tag</span>
+              </div>
+
+            </div>
+
+            <div class="portlet card">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="header">Feeds</div>
+              </div>
+
+              <i class="fa fa-times close"></i>
+              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="user">Username</span>
+                <i class="fa fa-tag"></i><span class="tags">Tag</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- end . cards -->
+          <span class="round-button button-small fixed">+</span>
         </div>
+        <div class="list">
 
-        <div class="column">
+          <div class="title fixed"><strong>List Title</strong></div>
+          <i class="fa fa-times close"></i>
 
-          <div class="portlet">
-            <div class="portlet-header">Shopping</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+          <div class="sortable-cards">
+            <div class="portlet card">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="header">Feeds</div>
+              </div>
+
+              <i class="fa fa-times close"></i>
+              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="user">Username</span>
+                <i class="fa fa-tag"></i><span class="tags">Tag</span>
+              </div>
+
+            </div>
+
+            <div class="portlet card">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="header">Feeds</div>
+              </div>
+
+              <i class="fa fa-times close"></i>
+              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="user">Username</span>
+                <i class="fa fa-tag"></i><span class="tags">Tag</span>
+              </div>
+
+            </div>
           </div>
-
+          <!-- end . cards -->
+          <span class="round-button button-small fixed">+</span>
         </div>
+        <div class="list">
 
-        <div class="column">
+          <div class="title fixed"><strong>List Title</strong></div>
+          <i class="fa fa-times close"></i>
 
-          <div class="portlet">
-            <div class="portlet-header">Links</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+          <div class="sortable-cards">
+            <div class="portlet card">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="header">Feeds</div>
+              </div>
+
+              <i class="fa fa-times close"></i>
+              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="user">Username</span>
+                <i class="fa fa-tag"></i><span class="tags">Tag</span>
+              </div>
+
+            </div>
+
+            <div class="portlet card">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="header">Feeds</div>
+              </div>
+
+              <i class="fa fa-times close"></i>
+              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="user">Username</span>
+                <i class="fa fa-tag"></i><span class="tags">Tag</span>
+              </div>
+
+            </div>
           </div>
-
-          <div class="portlet">
-            <div class="portlet-header">Images</div>
-            <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-          </div>
-
+          <!-- end . cards -->
+          <span class="round-button button-small fixed">+</span>
         </div>
+        <!-- end . list -->
+
+        <span class="round-button button-large fixed">+</span>
+
+  </section>
+  <!-- end . content-area -->
 
         <!-- end html -->
 
         <script src="vendor/jquery-3.1.1.min.js"></script>
-        <script src="vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+        <script src="vendor/jquery-ui.min.js"></script>
 
+        <!-- JS for Medium -->
         <script src="js/app.js"></script>
 
     </body>

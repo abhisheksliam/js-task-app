@@ -1,23 +1,33 @@
 // Place any jQuery/helper in here.
 
-
+// todo: sortable support for touch events
 $( function() {
-  $( ".column" ).sortable({
-    connectWith: ".column",
-    handle: ".portlet-header",
-    cancel: ".portlet-toggle",
-    placeholder: "portlet-placeholder ui-corner-all"
+  $( "#content-area .sortable-cards" ).sortable({
+    connectWith: ".sortable-cards",
+    handle: ".drag-handler",
+    cancel: ".toggle",
+    placeholder: "placeholder"
   });
 
   $( ".portlet" )
-    .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
-    .find( ".portlet-header" )
-      .addClass( "ui-widget-header ui-corner-all" )
-      .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+    .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" );
 
-  $( ".portlet-toggle" ).on( "click", function() {
-    var icon = $( this );
-    icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
-    icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
-  });
+    $( "#content-area" ).on( "click", ".title, .header, .content, .user, .tags", function() {
+      console.log( $( this ).text() );
+      this.contentEditable = true;
+      this.focus();
+      this.style.border = '1px dotted black';
+      this.style.outline= 'none';
+      this.style['border-color']= '#9ecaed';
+      this.style['box-shadow']= '0 0 10px #9ecaed';
+
+    });
+
+    $( "#content-area" ).on( "blur", ".title, .header, .content, .user, .tags", function() {
+      console.log( $( this ).text() );
+      this.style.border = '';
+      this.style['box-shadow']= '';
+      this.contentEditable = false;
+    });
+
 } );
