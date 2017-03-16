@@ -20,7 +20,7 @@ $( function() {
       this.style.outline= 'none';
       this.style['border-color']= '#9ecaed';
       this.style['box-shadow']= '0 0 10px #9ecaed';
-
+      // todo: while in focus - update model every n sec interval
     });
 
     $( "#content-area" ).on( "blur", ".title, .header, .content, .user, .tags", function() {
@@ -28,6 +28,7 @@ $( function() {
       this.style.border = '';
       this.style['box-shadow']= '';
       this.contentEditable = false;
+      // todo: update model
     });
 
-} );
+});
