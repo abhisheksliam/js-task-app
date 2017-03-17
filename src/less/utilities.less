@@ -9,6 +9,13 @@
     visibility: hidden;
 }
 
+.background-cover (@image-url : @app-bg-image) {
+  background: @image-url no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 .round-button (@size: 25px) {
     width:@size;
@@ -54,4 +61,9 @@
   -webkit-border-radius: @radius;
      -moz-border-radius: @radius;
           border-radius: @radius;
+}
+
+.center-hor {
+  margin: 0 auto;
+  display: block;
 }

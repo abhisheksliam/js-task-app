@@ -4,25 +4,30 @@
 @import "utilities.less";
 
   * {
-      box-sizing: border-box;
       font-family: Sans-Serif, Helvetica, Arial ;
   }
 
   body {
-    background: @app-bg;
+    //  background: @app-bg;
+    .background-cover
+
+  }
+
+  #content-area {
+    margin: 100px 0 0 20px;
   }
 
   .list {
       .border-radius;
       float: left;
       position: relative;
+      margin: 15px 15px 15px 0;     
       width: 30%;
-      padding: 8px;
-      margin: 15px 10px 0 0;
       background: @list-bg;
+      box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
 
       &:hover {
-          box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+          box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.2);
       }
 
       >.close {
@@ -42,7 +47,7 @@
           padding: 0.3em;
           background: @card-bg;
 
-             .header {
+             .task {
                padding: 0.2em 0.3em;
                margin-bottom: 0.5em;
                display: inline-block;
@@ -52,7 +57,7 @@
 
              }
 
-             .content {
+             .description {
                padding: 0.4em;
              }
 
@@ -61,18 +66,24 @@
                margin-bottom: 0.5em;
                display: inline-block;
                   &>i {
-                    padding-right: 2px;
+                    padding-right: 0.3em;
+                    margin-left: 1em;
                   }
 
-                  .tags, .user {
-                    display: inherit;
-                    margin: 5px 10px;
+                  .tags, .users {
+                    display: inline;
                     font-size: 14px;
                     background: #abd4de;
-                    padding: 0.4em 0.3em;
+                    padding: 0.4em 0.6em;
+                    height: 1em;
                      i {
                          padding-right: 12px;
                      }
+                  }
+
+                  &>* {
+                      margin-top: 1em;
+                      margin-bottom: 1em;
                   }
              }
 
@@ -83,8 +94,8 @@
   .placeholder {
     border: 1px dotted black;
     margin: 0.5em 0.5em;
-    height: 50px;
-    background: rgb(249,246,206);
+    height: 100px;
+    background: rgba(255, 247, 153, 0.64);
   }
 
   .close {
