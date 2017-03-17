@@ -46,9 +46,9 @@ $( function() {
 
   })();
 
-  /* ==========================================================================
-     Finction Definitions
-     ========================================================================== */
+  /*
+     ## Finction Definitions
+ */
 
   // Handlebars templating
   function saveAndRenderContext() {
@@ -73,26 +73,28 @@ $( function() {
       cancel: ".toggle",
       placeholder: "placeholder",
       start: function(e, ui) {
-          $(this).attr('data-old-card-index', ui.item.index());
-          $(this).attr('data-old-list-ondex', $(this).closest('.list').index());
+      var $self = $( this );
+          $self.attr('data-old-card-index', ui.item.index());
+          $self.attr('data-old-list-ondex', $self.closest('.list').index());
       },
       update: function(e, ui) {
+      var $self = $( this );
           if(!repeat) {
-            oldListIndex = $(this).attr('data-old-list-ondex'),
-            oldCardIndex = $(this).attr('data-old-card-index'),
+            oldListIndex = $self.attr('data-old-list-ondex'),
+            oldCardIndex = $self.attr('data-old-card-index'),
             repeat = true;
           }
-          newListIndex = $(this).closest('.list').index(),
+          newListIndex = $self.closest('.list').index(),
           newCardIndex = ui.item.index();
-          $(this).removeAttr('data-old-card-index');
-          $(this).removeAttr('data-old-list-ondex');
+          $self.removeAttr('data-old-card-index');
+          $self.removeAttr('data-old-list-ondex');
       },
       stop: function( event, ui ) {
         repeat = false;
         updateModelSortable(oldListIndex, newListIndex, oldCardIndex, newCardIndex);
       }
     });
-    // todo: sortable support for touch events
+    // todo: add sortable support for touch events
 
     $( ".portlet" )
       .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" );
@@ -114,25 +116,30 @@ $( function() {
   // update data from jq sortable to lsm
   function updateModelSortable(oldListIndex, newListIndex, oldCardIndex, newCardIndex) {
     try {
+      oldListIndex = parseInt(oldListIndex);
+      newListIndex = parseInt(newListIndex);
+      oldCardIndex = parseInt(oldCardIndex);
+      newCardIndex = parseInt(newCardIndex);
+
       if(oldListIndex !==-1 && newListIndex !==-1 &&
          oldCardIndex !==-1 && newCardIndex !==-1) {
         if (oldListIndex !== newListIndex || oldCardIndex !== newCardIndex) {
 
             // add sortable data
-            var value = GLOBALS.userdata.list[parseInt(oldListIndex)]
-                    .cards.slice(parseInt(oldCardIndex), (parseInt(oldCardIndex) +1));
+            var value = GLOBALS.userdata.list[oldListIndex]
+                    .cards.slice(oldCardIndex, (oldCardIndex+1));
 
-            GLOBALS.userdata.list[parseInt(newListIndex)]
-                    .cards.splice(parseInt(newCardIndex), 0, value[0]);
+            GLOBALS.userdata.list[newListIndex]
+                    .cards.splice(newCardIndex, 0, value[0]);
 
             // delete sortable data
-            if ( (parseInt(newCardIndex) < parseInt(oldCardIndex)) &&
-                    (parseInt(newListIndex) === parseInt(oldListIndex)) ) {
-                    GLOBALS.userdata.list[parseInt(oldListIndex)]
-                            .cards.splice(parseInt(oldCardIndex) +1, 1);
+            if ( (newCardIndex < oldCardIndex) &&
+                    (newListIndex === oldListIndex) ) {
+                    GLOBALS.userdata.list[oldListIndex]
+                            .cards.splice((oldCardIndex+1), 1);
             } else {
-                    GLOBALS.userdata.list[parseInt(oldListIndex)]
-                            .cards.splice(parseInt(oldCardIndex), 1);
+                    GLOBALS.userdata.list[oldListIndex]
+                            .cards.splice(oldCardIndex, 1);
             }
 
             saveUserData(GLOBALS);
@@ -172,9 +179,9 @@ $( function() {
      window.scrollTo(0, 0);
    }
 
-  /* ==========================================================================
-     To Initialize userdata - from lsm to GLOBALS variable
-     ========================================================================== */
+   /*
+      ## To Initialize userdata - from lsm to GLOBALS variable
+  */
 
   function initUserData(){
       try{
