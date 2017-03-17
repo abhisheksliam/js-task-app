@@ -12,4 +12,4 @@
 
 5. launch url url "http://localhost:3000"
 
-[demo url: "http://abhisheksliam.github.io/tma"]
+[demo url: http://abhisheksliam.github.io/tma]
