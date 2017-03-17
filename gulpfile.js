@@ -95,4 +95,9 @@ gulp.task('watch', function () {
 gulp.task('dist', ['clean', 'copy', 'scripts', 'styles']);
 
 // The default task (called when you run `gulp`)
-gulp.task('default', ['clean', 'copy', 'scripts', 'styles', 'server', 'watch']);
+// gulp.task('default', ['clean', 'copy', 'scripts', 'styles', 'server', 'watch']);
+
+gulp.task('default', ['dist'], function () {
+    gulp.start('server');
+    gulp.start('watch');
+});
