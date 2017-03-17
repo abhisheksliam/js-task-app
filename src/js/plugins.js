@@ -1,5 +1,5 @@
 
-// jQuery helpers
+// jQuery App helpers
 $( function() {
 
 /* ==========================================================================
@@ -7,7 +7,6 @@ $( function() {
    Inplace Edit - Content Editable set / reset & Model data update trigger
    ========================================================================== */
     $( "#content-area" ).on( "click", ".title, .task, .description, .users, .tags", function() {
-      console.log( $( this ).text() );
       this.contentEditable = true;
       this.focus();
       this.style.border = '1px dotted black';
@@ -17,7 +16,6 @@ $( function() {
     });
 
     $( "#content-area" ).on( "blur", ".title, .task, .description, .users, .tags", function() {
-      console.log( $( this ).text() );
       var listIndex = $(this).closest('.list').index();
       var cardIndex = $(this).closest('.card').index();
       var keyName = $( this ).attr('data-keyname').trim();
@@ -38,10 +36,17 @@ $( function() {
 
     $( ".new-list" ).on( "click", function() {
       try {
-      (GLOBALS.userdata.list).unshift(JSON.parse(JSON.stringify(GLOBALS.constants.blankList)));
+        var _push = JSON.parse(JSON.stringify(GLOBALS.constants.blankList));
+        // _push.name = prompt("Please enter list title..", "New List");
+      (GLOBALS.userdata.list).unshift(_push);
       } catch (er){console.log(er);}
 
       GLOBALS.utils.renderContext();
+      GLOBALS.utils.newListAddedView();
+
+      // animate new list
+      $( "#content-area" ).find('.list').first().effect("highlight", {}, 3000);
+
     });
     // todo: add modal to get list title
 
@@ -49,10 +54,15 @@ $( function() {
       try {
         var listIndex = $( this ).closest('.list').index();
         (GLOBALS.userdata.list[listIndex].cards)
-                                .push(JSON.parse(JSON.stringify(GLOBALS.constants.blankCard)));
+                         .push(JSON.parse(JSON.stringify(GLOBALS.constants.blankCard)));
       } catch (er){console.log(er);}
 
       GLOBALS.utils.renderContext();
+
+      // animate new card
+      $( "#content-area" ).find('.list').eq(parseInt(listIndex))
+                          .find('.card').last().effect("highlight", {}, 3000);
+
     });
 
     $( "#content-area" ).on( "click", ".delete-list", function() {

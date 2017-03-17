@@ -8,20 +8,26 @@
   }
 
   body {
-    //  background: @app-bg;
     .background-cover
-
   }
 
   #content-area {
     margin: 100px 0 0 20px;
   }
 
+  .new-list {
+    position: fixed;
+    display: block;
+    top: 15px;
+    left: 15px;
+    z-index: 99999;
+  }
+
   .list {
       .border-radius;
       float: left;
       position: relative;
-      margin: 15px 15px 15px 0;     
+      margin: 15px 15px 15px 0;
       width: 30%;
       background: @list-bg;
       box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
@@ -86,9 +92,7 @@
                       margin-bottom: 1em;
                   }
              }
-
       }
-
   }
 
   .placeholder {
@@ -103,5 +107,6 @@
     right: 5px;
     top: 5px;
     color: @close-icon;
+    cursor: pointer;
     z-index: 999;
   }
