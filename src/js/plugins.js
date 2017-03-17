@@ -36,7 +36,10 @@ $( function() {
 
     $( ".new-list" ).on( "click", function() {
       try {
-      (GLOBALS.userdata.list).unshift(JSON.parse(JSON.stringify(GLOBALS.constants.blankList)));
+        var listname = prompt("Please enter list title..", "New List");
+      (GLOBALS.userdata.list).unshift(
+          (JSON.parse(JSON.stringify(GLOBALS.constants.blankList)).name = listname;
+        ));
       } catch (er){console.log(er);}
 
       GLOBALS.utils.renderContext();

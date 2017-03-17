@@ -9,15 +9,15 @@ $( function() {
 
       GLOBALS.constants = {
                     blankCard : {
-                      task:"Task Name",
-                      description: "Task Description",
-                      tags: [" "],
-                      users: [" "],
+                      task:"Task Name..",
+                      description: "Task Description..",
+                      tags: ["tag1, tag2"],
+                      users: ["assignee"],
                       completed: false
                     },
                     blankList : {
                       _id: "",
-                      name: "List Title",
+                      name: "New List",
                       modified: "",
                       cards: []
                     }
