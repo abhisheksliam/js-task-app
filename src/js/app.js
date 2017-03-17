@@ -1,4 +1,5 @@
 
+// App JS
 $( function() {
 
   (function initApp(){
@@ -21,12 +22,14 @@ $( function() {
                       cards: []
                     }
                 };
-      // todo: to be updated after prompting user to prefil data while adding new
+      // todo: to update & add to userdata after prompting user to prefil data
+      // while adding new list / card
 
       GLOBALS.utils = {};
       GLOBALS.utils.renderContext = renderContext;
       GLOBALS.utils.applyJQuerySortable = applyJQuerySortable;
       GLOBALS.utils.updateModel = updateModel;
+      GLOBALS.utils.newListAddedView = newListAddedView;
 
       GLOBALS.service = {};
       GLOBALS.service.saveUserData = saveUserData;
@@ -106,6 +109,10 @@ $( function() {
        return null;
      }
    };
+
+   function newListAddedView() {
+     window.scrollTo(0, 0);
+   }
 
   /* ==========================================================================
      Initialize userdata

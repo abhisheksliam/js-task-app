@@ -1,5 +1,5 @@
 
-// jQuery helpers
+// jQuery App helpers
 $( function() {
 
 /* ==========================================================================
@@ -42,6 +42,11 @@ $( function() {
       } catch (er){console.log(er);}
 
       GLOBALS.utils.renderContext();
+      GLOBALS.utils.newListAddedView();
+
+      // animate new list
+      $( "#content-area" ).find('.list').first().effect("highlight", {}, 3000);
+
     });
     // todo: add modal to get list title
 
@@ -49,10 +54,15 @@ $( function() {
       try {
         var listIndex = $( this ).closest('.list').index();
         (GLOBALS.userdata.list[listIndex].cards)
-                                .push(JSON.parse(JSON.stringify(GLOBALS.constants.blankCard)));
+                         .push(JSON.parse(JSON.stringify(GLOBALS.constants.blankCard)));
       } catch (er){console.log(er);}
 
       GLOBALS.utils.renderContext();
+
+      // animate new card
+      $( "#content-area" ).find('.list').eq(parseInt(listIndex))
+                          .find('.card').last().effect("highlight", {}, 3000);
+
     });
 
     $( "#content-area" ).on( "click", ".delete-list", function() {
