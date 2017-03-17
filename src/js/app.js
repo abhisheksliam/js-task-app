@@ -1,43 +1,52 @@
 
 $( function() {
 
-  renderContext();
+  (function initApp(){
 
-  if ( GLOBALS ) {
-    GLOBALS.constants = {
-                  blankCard : {
-                    task:"Task Name",
-                    description: "Task Description",
-                    tags: [" "],
-                    users: [" "],
-                    completed: false
-                  },
-                  blankList = {
-                    _id: "",
-                    name: "List Title",
-                    modified: "",
-                    cards: []
-                  }
-              };
-    // todo: to be updated after prompting user to prefil data while adding new
+    if ( typeof GLOBALS === "undefined" ) {
+      GLOBALS = {};
 
-    GLOBALS.utils = {};
-    GLOBALS.utils.renderContext = renderContext;
-    GLOBALS.utils.applyJQuerySortable = applyJQuerySortable;
-    GLOBALS.utils.updateModel = updateModel;
+      GLOBALS.constants = {
+                    blankCard : {
+                      task:"Task Name",
+                      description: "Task Description",
+                      tags: [" "],
+                      users: [" "],
+                      completed: false
+                    },
+                    blankList : {
+                      _id: "",
+                      name: "List Title",
+                      modified: "",
+                      cards: []
+                    }
+                };
+      // todo: to be updated after prompting user to prefil data while adding new
 
-    GLOBALS.service = {};
-    GLOBALS.service.saveUserData = saveUserData;
-    GLOBALS.service.getUserData = getUserData;
-  } else {
-    console.log('Error in init globals.');
-  }
+      GLOBALS.utils = {};
+      GLOBALS.utils.renderContext = renderContext;
+      GLOBALS.utils.applyJQuerySortable = applyJQuerySortable;
+      GLOBALS.utils.updateModel = updateModel;
+
+      GLOBALS.service = {};
+      GLOBALS.service.saveUserData = saveUserData;
+      GLOBALS.service.getUserData = getUserData;
+      GLOBALS.service.initUserData = initUserData;
+
+    } else {
+      console.log('Error in init globals.');
+    }
+
+    initUserData();
+    renderContext();
+
+  })();
 
   /* ==========================================================================
      Finction Definitions
      ========================================================================== */
 
-  // Handlebars template handling
+  // Handlebars templating
   function renderContext(){
     try {
       var theTemplateScript = $("#list-card-template").html();
@@ -90,61 +99,62 @@ $( function() {
   function getUserData(){
    try{
      return JSON.parse(localStorage.getItem('userdata'));
-   } catch (er) {console.log(er);
-     alert('Error in retriving userdata. Local storage might not be supported on client');}
-     return {};
+   } catch (er) {
+       console.log(er);
+       alert('Error in retriving userdata. Local storage might'+
+       ' not be supported on client');
+       return null;
+     }
    };
 
-  }
-});
+  /* ==========================================================================
+     Initialize userdata
+     ========================================================================== */
 
-/* ==========================================================================
-   Initialize userdata
-   ========================================================================== */
-
-(function initUserData(){
-    try{
-      if(GLOBALS) {
-        GLOBALS.userdata = GLOBALS.service.getUserData();
-      } else {
-        GLOBALS = {
-          userdata: {}
-        };
+  function initUserData(){
+      try{
+        if(GLOBALS) {
+          GLOBALS.userdata = GLOBALS.service.getUserData();
+        } else {
+          GLOBALS = {
+            userdata: {}
+          };
+        }
+      } catch(er){
+        console.log(er);
       }
-    } catch(er){
-      console.log(er);
-    }
-  }
 
-  // temp - setting up sample userdata for view, if no userdata is present
-  if (!(GLOBALS.userdata) {
-    GLOBALS.userdata = {
-      meta: {
-        title: "Task Management App"
-      },
-      list: [
-          {
-            _id: "",
-            name: "My Task List",
-            modified: "",
-            cards: [
-                {
-                  task:"Task 1",
-                  description: "verify features of app",
-                  tags: ['inprocess'],
-                  users: ['qa'],
-                  completed: false
-                },
-                {
-                  task:"Task 2",
-                  description: "implement new app features",
-                  tags: ['new','p2'],
-                  users: ['developer'],
-                  completed: false
-                }
-              ]
-          }
-      ]
-    };
-  }
-})();
+    // temp - setting up sample userdata for view, if no userdata is present
+    if (!(GLOBALS.userdata)) {
+      GLOBALS.userdata = {
+        meta: {
+          title: "Task Management App"
+        },
+        list: [
+            {
+              _id: "",
+              name: "My Task List",
+              modified: "",
+              cards: [
+                  {
+                    task:"Explore Features",
+                    description: "verify features of app",
+                    tags: ['inprocess'],
+                    users: ['qa'],
+                    completed: false
+                  },
+                  {
+                    task:"Implement new features",
+                    description: "implement new app features",
+                    tags: ['new','p2'],
+                    users: ['developer'],
+                    completed: false
+                  }
+                ]
+            }
+        ]
+      };
+    }
+  };
+
+});
