@@ -1,7 +1,8 @@
 {
-  "name": "web-app-html",
-  "description": "",
-  "repository": "",
+  "name": "tma",
+  "description": "Task Management App",
+  "repository": "https://github.com/abhisheksliam/tma",
+  "author": "abhisheksliam",
   "scripts": {
   "start": "gulp"
   },
