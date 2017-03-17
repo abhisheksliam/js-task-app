@@ -26,7 +26,7 @@ $( function() {
       // while adding new list / card - http://jquerymodal.com/
 
       GLOBALS.utils = {};
-      GLOBALS.utils.renderContext = renderContext;
+      GLOBALS.utils.saveAndRenderContext = saveAndRenderContext;
       GLOBALS.utils.applyJQuerySortable = applyJQuerySortable;
       GLOBALS.utils.updateModel = updateModel;
       GLOBALS.utils.updateModelSortable = updateModelSortable;
@@ -42,7 +42,7 @@ $( function() {
     }
 
     initUserData();
-    renderContext();
+    saveAndRenderContext();
 
   })();
 
@@ -51,15 +51,14 @@ $( function() {
      ========================================================================== */
 
   // Handlebars templating
-  function renderContext() {
+  function saveAndRenderContext() {
+    saveUserData();
     try {
       var theTemplateScript = $("#list-card-template").html();
       var theTemplate = Handlebars.compile(theTemplateScript);
       var theCompiledHtml = theTemplate(GLOBALS.userdata);
       $('#content-area').html(theCompiledHtml);
     } catch (er) {console.log('Error in handlebars templating. ', er);}
-
-    saveUserData();
     applyJQuerySortable();
   };
 
@@ -99,6 +98,7 @@ $( function() {
       .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" );
   };
 
+  // update data from view to lsm
   function updateModel(listIndex, cardIndex, keyName, val) {
     try {
       if (keyName === "title")
@@ -111,6 +111,7 @@ $( function() {
     } catch (er) {console.log('Error in updating data model. ', er);}
   };
 
+  // update data from jq sortable to lsm
   function updateModelSortable(oldListIndex, newListIndex, oldCardIndex, newCardIndex) {
     try {
       if(oldListIndex !==-1 && newListIndex !==-1 &&
@@ -140,6 +141,7 @@ $( function() {
     } catch (er) {console.log('Error in updating data model. ', er);}
   };
 
+  // save user data
   function saveUserData(_GLOBALS) {
     try{
       if( ! _GLOBALS ) {
@@ -148,9 +150,12 @@ $( function() {
       }
       localStorage.setItem('userdata', JSON.stringify(_GLOBALS.userdata));
     } catch (er) {console.log(er);
-    alert('Error in saving userdata. Local storage might not be supported on client');}
+      alert('Error in retriving userdata. Local storage might'+
+      ' not be supported on client');
+      }
   };
 
+  // get user data
   function getUserData() {
    try{
      return JSON.parse(localStorage.getItem('userdata'));
@@ -162,12 +167,13 @@ $( function() {
      }
    };
 
+   // view updates after adding new list
    function newListAddedView() {
      window.scrollTo(0, 0);
    }
 
   /* ==========================================================================
-     Initialize userdata
+     To Initialize userdata - from lsm to GLOBALS variable
      ========================================================================== */
 
   function initUserData(){
@@ -203,7 +209,7 @@ $( function() {
                     completed: false
                   },
                   {
-                    task:"Implement new features",
+                    task:"New Features",
                     description: "implement new app features",
                     tags: ['new','p2'],
                     users: ['developer'],

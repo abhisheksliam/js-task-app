@@ -34,6 +34,7 @@ $( function() {
    Handling Add / Delete - List, Card - Model Update Events
    ========================================================================== */
 
+   // Add new list
     $( ".new-list" ).on( "click", function() {
       try {
         var _push = JSON.parse(JSON.stringify(GLOBALS.constants.blankList));
@@ -41,15 +42,15 @@ $( function() {
       (GLOBALS.userdata.list).unshift(_push);
       } catch (er){console.log(er);}
 
-      GLOBALS.utils.renderContext();
+      GLOBALS.utils.saveAndRenderContext();
       GLOBALS.utils.newListAddedView();
 
       // animate new list
       $( "#content-area" ).find('.list').first().effect("highlight", {}, 3000);
 
     });
-    // todo: add modal to get list title
 
+    // Add new card
     $( "#content-area" ).on( "click", ".new-card", function() {
       try {
         var listIndex = $( this ).closest('.list').index();
@@ -57,23 +58,24 @@ $( function() {
                          .push(JSON.parse(JSON.stringify(GLOBALS.constants.blankCard)));
       } catch (er){console.log(er);}
 
-      GLOBALS.utils.renderContext();
+      GLOBALS.utils.saveAndRenderContext();
 
       // animate new card
       $( "#content-area" ).find('.list').eq(parseInt(listIndex))
                           .find('.card').last().effect("highlight", {}, 3000);
-
     });
 
+    // Delete a list
     $( "#content-area" ).on( "click", ".delete-list", function() {
       try {
         var listIndex = $(this).closest('.list').index();
         (GLOBALS.userdata.list).splice(listIndex,1);
       } catch (er){console.log(er);}
 
-      GLOBALS.utils.renderContext();
+      GLOBALS.utils.saveAndRenderContext();
     });
 
+    // Delete a card
     $( "#content-area" ).on( "click", ".delete-card", function() {
       try {
         var listIndex = $(this).closest('.list').index();
@@ -81,7 +83,7 @@ $( function() {
         (GLOBALS.userdata.list[listIndex].cards).splice(cardIndex,1);
       } catch (er){console.log(er);}
 
-      GLOBALS.utils.renderContext();
+      GLOBALS.utils.saveAndRenderContext();
     });
 
 });
