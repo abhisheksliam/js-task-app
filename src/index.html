@@ -18,145 +18,54 @@
         <![endif]-->
 
   <!-- Application content here -->
-
-  <span title="Add New List" class="round-button button-large top-right-corner">+</span>
+  <span title="Add New List" class="round-button button-large center-hor new-list">+</span>
 
   <section id="content-area">
-
-        <div class="list">
-
-          <div class="title fixed"><strong>List Title</strong></div>
-          <i class="fa fa-times close"></i>
-
-          <div class="sortable-cards">
-            <div class="portlet card">
-
-              <div class="drag-handler">
-                <i class="fa fa-arrows"></i>
-                <div class="header">Feeds</div>
-              </div>
-
-              <i class="fa fa-times close"></i>
-              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-              <div class="footer">
-                <i class="fa fa-user"></i><span class="user">Username</span>
-                <i class="fa fa-tag"></i><span class="tags">Tag</span>
-              </div>
-
-            </div>
-
-            <div class="portlet card">
-
-              <div class="drag-handler">
-                <i class="fa fa-arrows"></i>
-                <div class="header">Feeds</div>
-              </div>
-
-              <i class="fa fa-times close"></i>
-              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-              <div class="footer">
-                <i class="fa fa-user"></i><span class="user">Username</span>
-                <i class="fa fa-tag"></i><span class="tags">Tag</span>
-              </div>
-
-            </div>
-          </div>
-          <!-- end . cards -->
-          <span title="Add New Card" class="round-button button-small fixed">+</span>
-        </div>
-        <div class="list">
-
-          <div class="title fixed"><strong>List Title</strong></div>
-          <i class="fa fa-times close"></i>
-
-          <div class="sortable-cards">
-            <div class="portlet card">
-
-              <div class="drag-handler">
-                <i class="fa fa-arrows"></i>
-                <div class="header">Feeds</div>
-              </div>
-
-              <i class="fa fa-times close"></i>
-              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-              <div class="footer">
-                <i class="fa fa-user"></i><span class="user">Username</span>
-                <i class="fa fa-tag"></i><span class="tags">Tag</span>
-              </div>
-
-            </div>
-
-            <div class="portlet card">
-
-              <div class="drag-handler">
-                <i class="fa fa-arrows"></i>
-                <div class="header">Feeds</div>
-              </div>
-
-              <i class="fa fa-times close"></i>
-              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-              <div class="footer">
-                <i class="fa fa-user"></i><span class="user">Username</span>
-                <i class="fa fa-tag"></i><span class="tags">Tag</span>
-              </div>
-
-            </div>
-          </div>
-          <!-- end . cards -->
-          <span title="Add New Card" class="round-button button-small fixed">+</span>
-        </div>
-        <div class="list">
-
-          <div class="title fixed"><strong>List Title</strong></div>
-          <i class="fa fa-times close"></i>
-
-          <div class="sortable-cards">
-            <div class="portlet card">
-
-              <div class="drag-handler">
-                <i class="fa fa-arrows"></i>
-                <div class="header">Feeds</div>
-              </div>
-
-              <i class="fa fa-times close"></i>
-              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-              <div class="footer">
-                <i class="fa fa-user"></i><span class="user">Username</span>
-                <i class="fa fa-tag"></i><span class="tags">Tag</span>
-              </div>
-
-            </div>
-
-            <div class="portlet card">
-
-              <div class="drag-handler">
-                <i class="fa fa-arrows"></i>
-                <div class="header">Feeds</div>
-              </div>
-
-              <i class="fa fa-times close"></i>
-              <div class="content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-              <div class="footer">
-                <i class="fa fa-user"></i><span class="user">Username</span>
-                <i class="fa fa-tag"></i><span class="tags">Tag</span>
-              </div>
-
-            </div>
-          </div>
-          <!-- end . cards -->
-          <span title="Add New Card" class="round-button button-small fixed">+</span>
-        </div>
-        <!-- end . list -->
-
+    <!--new content will be displayed in here-->
   </section>
-  <!-- end . content-area -->
+
+  <!--Template. -->
+  <!--Data will be inserted in its according place, replacing the brackets.-->
+  <script id="list-card-template" type="text/x-handlebars-template">
+  {{#each list}}
+      <div class="list">
+
+        <div class="title fixed" data-keyname="title"><strong>{{name}}</strong></div>
+        <i class="fa fa-times close delete-list"></i>
+
+        <!-- new card -->
+      <div class="sortable-cards">
+          {{#each cards}}
+            <div class="portlet card" data-card-index="{{@index}}">
+
+              <div class="drag-handler">
+                <i class="fa fa-arrows"></i>
+                <div class="task" data-keyname="task">{{task}}</div>
+              </div>
+
+              <i class="fa fa-times close delete-card"></i>
+              <div class="description" data-keyname="description">{{description}}</div>
+              <div class="footer">
+                <i class="fa fa-user"></i><span class="users" data-keyname="users">{{users}}</span>
+                <i class="fa fa-tag"></i><span class="tags" data-keyname="tags">{{tags}}</span>
+              </div>
+
+            </div>
+          {{/each}}
+      </div>
+        <!-- end . cards -->
+
+        <span title="Add New Card" class="round-button button-small fixed new-card">+</span>
+    </div>
+  {{/each}}
+    <!-- end . list -->
+  </script>
 
         <!-- end html -->
 
         <script src="vendor/jquery-3.1.1.min.js"></script>
         <script src="vendor/jquery-ui.min.js"></script>
-
-        <!-- JS for Medium -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
         <script src="js/app.js"></script>
 
     </body>

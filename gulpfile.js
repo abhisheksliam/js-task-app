@@ -39,9 +39,9 @@ gulp.task('copy-html', function () {
 gulp.task('scripts', function () {
     return es.concat(
         // Concatenate, minify and copy all JavaScript (except vendor scripts)
-        gulp.src(['src/js/**/*.js', '!src/vendor/**'])
+        gulp.src(['src/js/app.js', 'src/js/plugins.js'])
             .pipe(concat('app.js'))
-            .pipe(uglify())
+            // .pipe(uglify())
             .pipe(gulp.dest('dist/js'))
     );
 });

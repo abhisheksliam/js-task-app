@@ -19,14 +19,10 @@
 
   .list {
       .border-radius;
-      &:not(:first-of-type) {
-        margin-left: 15px;
-      }
       float: left;
       position: relative;
+      margin: 15px 15px 15px 0;     
       width: 30%;
-      margin-top: 15px;
-      margin-bottom: 15px;
       background: @list-bg;
       box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
 
@@ -51,7 +47,7 @@
           padding: 0.3em;
           background: @card-bg;
 
-             .header {
+             .task {
                padding: 0.2em 0.3em;
                margin-bottom: 0.5em;
                display: inline-block;
@@ -61,7 +57,7 @@
 
              }
 
-             .content {
+             .description {
                padding: 0.4em;
              }
 
@@ -70,18 +66,24 @@
                margin-bottom: 0.5em;
                display: inline-block;
                   &>i {
-                    padding-right: 2px;
+                    padding-right: 0.3em;
+                    margin-left: 1em;
                   }
 
-                  .tags, .user {
-                    display: inherit;
-                    margin: 5px 10px;
+                  .tags, .users {
+                    display: inline;
                     font-size: 14px;
                     background: #abd4de;
-                    padding: 0.4em 0.3em;
+                    padding: 0.4em 0.6em;
+                    height: 1em;
                      i {
                          padding-right: 12px;
                      }
+                  }
+
+                  &>* {
+                      margin-top: 1em;
+                      margin-bottom: 1em;
                   }
              }
 
