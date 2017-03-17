@@ -37,7 +37,7 @@ $( function() {
     $( ".new-list" ).on( "click", function() {
       try {
         var _push = JSON.parse(JSON.stringify(GLOBALS.constants.blankList));
-        _push.name = prompt("Please enter list title..", "New List");
+        // _push.name = prompt("Please enter list title..", "New List");
       (GLOBALS.userdata.list).unshift(_push);
       } catch (er){console.log(er);}
 
