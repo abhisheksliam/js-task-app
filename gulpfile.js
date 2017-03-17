@@ -21,8 +21,8 @@ gulp.task('clean', function () {
 gulp.task('copy', function () {
     // Copy all application files except app *.less and .js into the `dist` folder
     return es.concat(
-        gulp.src(['src/js/vendor/**/*.*'])
-            .pipe(gulp.dest('dist/js/vendor')),
+        // gulp.src(['src/js/vendor/**/*.*'])
+        //     .pipe(gulp.dest('dist/js/vendor')),
         gulp.src(['src/images/*.*'])
             .pipe(gulp.dest('dist/images')),
         gulp.src(['src/*.*'])
@@ -31,7 +31,7 @@ gulp.task('copy', function () {
 });
 
 gulp.task('copy-html', function () {
-    // Copy all application files except *.less and .js into the `dist` folder
+    // Copy html files
     return es.concat(
         gulp.src(['src/**/*.html'])
             .pipe(gulp.dest('dist'))
@@ -44,7 +44,13 @@ gulp.task('scripts', function () {
         gulp.src(['src/js/app.js', 'src/js/plugins.js','!src/js/vendor/**'])
             .pipe(concat('app.js'))
             // .pipe(uglify())
-            .pipe(gulp.dest('dist/js'))
+            .pipe(gulp.dest('dist/js')),
+
+        gulp.src(['src/js/vendor/jquery-3.1.1.min.js',
+                  'src/js/vendor/jquery-ui.min.js',
+                  'src/js/vendor/handlebars.js'])
+            .pipe(concat('lib.js'))
+            .pipe(gulp.dest('dist/js/vendor'))
     );
 });
 
