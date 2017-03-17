@@ -12,9 +12,6 @@
 
 5. launch url url "http://localhost:3000"
 
-[demo url: http://abhisheksliam.github.io/tma]
-
-
 ### How to use:
 
 - add task list using top right + icon
@@ -26,3 +23,6 @@
 
 + data is persistance (using localStorage)
 + all text content is editable, click on text to edit
+
+
+[demo url: http://abhisheksliam.github.io/tma]
