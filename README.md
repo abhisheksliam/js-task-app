@@ -13,3 +13,16 @@
 5. launch url url "http://localhost:3000"
 
 [demo url: http://abhisheksliam.github.io/tma]
+
+
+### How to use:
+
+- add task list using top right + icon
+- add multiple cards in each list
+- delete card / list, using red cross icon
+- transfer cards from one list to other
+- assign cards to users
+- tag cards
+
+-- data is persistance (using localStorage)
+-- all text content is editable, click on text to edit
