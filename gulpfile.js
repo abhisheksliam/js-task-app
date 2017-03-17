@@ -87,7 +87,6 @@ gulp.task('watch', function () {
     gulp.watch('src/less/**/*.less', ['styles']);
 
     gulp.watch('src/**/*.html', ['copy-html']);
-
 });
 
 // The dist task (used to store all files that will go to the server)
