@@ -24,5 +24,5 @@
 - assign cards to users
 - tag cards
 
--- data is persistance (using localStorage)
--- all text content is editable, click on text to edit
++ data is persistance (using localStorage)
++ all text content is editable, click on text to edit
