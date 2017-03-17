@@ -2,6 +2,16 @@
 // App JS
 $( function() {
 
+// Check if local storage is available
+  try {
+    var k = 'test';
+      localStorage.setItem(k, k);
+      localStorage.removeItem(k);
+  } catch(e) {
+      alert('Please use modern browser. localStorage is not supported on client !')
+  }
+
+// Initialize App, appdata, view
   (function initApp() {
 
     if ( typeof GLOBALS === "undefined" ) {
@@ -22,47 +32,54 @@ $( function() {
                       cards: []
                     }
                 };
-      // todo: to update & add to userdata after prompting user to prefil data
-      // while adding new list / card - http://jquerymodal.com/
 
-      GLOBALS.utils = {};
-      GLOBALS.utils.saveAndRenderContext = saveAndRenderContext;
-      GLOBALS.utils.applyJQuerySortable = applyJQuerySortable;
-      GLOBALS.utils.updateModel = updateModel;
-      GLOBALS.utils.updateModelSortable = updateModelSortable;
-      GLOBALS.utils.newListAddedView = newListAddedView;
+      GLOBALS.utils = {
+                    saveAndRenderContext : saveAndRenderContext,
+                    renderContext : renderContext,
+                    applyJQuerySortable : applyJQuerySortable,
+                    updateModel : updateModel,
+                    updateModelSortable : updateModelSortable,
+                    newListAddedView : newListAddedView
+                  };
 
-      GLOBALS.service = {};
-      GLOBALS.service.saveUserData = saveUserData;
-      GLOBALS.service.getUserData = getUserData;
-      GLOBALS.service.initUserData = initUserData;
+
+      GLOBALS.service = {
+                    saveUserData : saveUserData,
+                    getUserData : getUserData,
+                    initUserData : initUserData
+                  };
+
 
     } else {
       console.log('Error in init globals.');
     }
 
-    initUserData();
-    saveAndRenderContext();
+    initUserData(); // Initialize userdata from local storage
+    renderContext(); // Render view from userdata
 
   })();
 
   /*
-     ## Finction Definitions
+     ## Function Definitions
  */
 
-  // Handlebars templating
+  // Save userdata from GLOBALS to localStorage & render handlebars template
   function saveAndRenderContext() {
-    saveUserData();
-    try {
+      saveUserData();
+      renderContext();
+  };
+
+ // Render context using handlebars
+  function renderContext() {
       var theTemplateScript = $("#list-card-template").html();
       var theTemplate = Handlebars.compile(theTemplateScript);
       var theCompiledHtml = theTemplate(GLOBALS.userdata);
       $('#content-area').html(theCompiledHtml);
-    } catch (er) {console.log('Error in handlebars templating. ', er);}
-    applyJQuerySortable();
+      applyJQuerySortable();
   };
 
-  // JQuery Ui Drag Drop, required for dynamically created elements
+
+  // JQuery Ui Drag Drop bind, required for dynamically created elements
   function applyJQuerySortable() {
 
     var oldListIndex = -1, newListIndex = -1, oldCardIndex = -1, newCardIndex = -1;
@@ -94,13 +111,12 @@ $( function() {
         updateModelSortable(oldListIndex, newListIndex, oldCardIndex, newCardIndex);
       }
     });
-    // todo: add sortable support for touch events
 
     $( ".portlet" )
       .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" );
   };
 
-  // update data from view to lsm
+  // Update data from view to localStorage
   function updateModel(listIndex, cardIndex, keyName, val) {
     try {
       if (keyName === "title")
@@ -113,7 +129,7 @@ $( function() {
     } catch (er) {console.log('Error in updating data model. ', er);}
   };
 
-  // update data from jq sortable to lsm
+  // Update data from jQuery sortable to localStorage
   function updateModelSortable(oldListIndex, newListIndex, oldCardIndex, newCardIndex) {
     try {
       oldListIndex = parseInt(oldListIndex);
@@ -148,41 +164,31 @@ $( function() {
     } catch (er) {console.log('Error in updating data model. ', er);}
   };
 
-  // save user data
+  // Save user data to localStorage
   function saveUserData(_GLOBALS) {
-    try{
       if( ! _GLOBALS ) {
         if ( GLOBALS ) { _GLOBALS = GLOBALS }
         else { _GLOBALS = {}; }
       }
       localStorage.setItem('userdata', JSON.stringify(_GLOBALS.userdata));
-    } catch (er) {console.log(er);
-      alert('Error in retriving userdata. Local storage might'+
-      ' not be supported on client');
-      }
   };
 
-  // get user data
+  // Get user data from localStorage
   function getUserData() {
    try{
      return JSON.parse(localStorage.getItem('userdata'));
-   } catch (er) {
-       console.log(er);
-       alert('Error in retriving userdata. Local storage might'+
-       ' not be supported on client');
+    } catch (er) {
+       console.log('Error in retriving userdata.', er);
        return null;
      }
    };
 
-   // view updates after adding new list
+   // Scroll to top after adding new todo list
    function newListAddedView() {
      window.scrollTo(0, 0);
    }
 
-   /*
-      ## To Initialize userdata - from lsm to GLOBALS variable
-  */
-
+// Initialize userdata - from localStorage to GLOBALS variable
   function initUserData(){
       try{
         if(GLOBALS) {
@@ -196,7 +202,7 @@ $( function() {
         console.log(er);
       }
 
-    // temp - setting up sample userdata for view, if no userdata is present
+    // temporary - setting up sample userdata for view, if no userdata is present
     if (!(GLOBALS.userdata)) {
       GLOBALS.userdata = {
         meta: {

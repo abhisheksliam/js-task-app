@@ -5,6 +5,8 @@ $( function() {
 /*
    ## Note: Dependent on app.js (app.js methods must be loaded before)
  */
+
+ // Initializing functions & constants defined in app.js
  var _utils = GLOBALS.utils,
      _userdata = GLOBALS.userdata,
      _constants = GLOBALS.constants;
@@ -42,54 +44,52 @@ $( function() {
 
    // Add new list
     $( ".new-list" ).on( "click", function() {
-      try {
-        var _push = JSON.parse(JSON.stringify(_constants.blankList));
+      var _push = JSON.parse(JSON.stringify(_constants.blankList));
         // _push.name = prompt("Please enter list title..", "New List");
       (_userdata.list).unshift(_push);
-      } catch (er){console.log(er);}
 
       _utils.saveAndRenderContext();
       _utils.newListAddedView();
 
-      // animate new list
+      // heilight newly added list
       $contentArea.find('.list').first().effect("highlight", {}, 3000);
 
     });
 
     // Add new card
     $contentArea.on( "click", ".new-card", function() {
-      try {
         var listIndex = $( this ).closest('.list').index();
-        (_userdata.list[listIndex].cards)
-                         .push(JSON.parse(JSON.stringify(_constants.blankCard)));
-      } catch (er){console.log(er);}
 
-      _utils.saveAndRenderContext();
+        if (listIndex !== -1) {
+          (_userdata.list[listIndex].cards)
+                           .push(JSON.parse(JSON.stringify(_constants.blankCard)));
+         _utils.saveAndRenderContext();
 
-      // animate new card
-      $contentArea.find('.list').eq(parseInt(listIndex))
-                          .find('.card').last().effect("highlight", {}, 3000);
+         // heilight newly added card
+         $contentArea.find('.list').eq(listIndex)
+                             .find('.card').last().effect("highlight", {}, 3000);
+        }
+
     });
 
     // Delete a list
     $contentArea.on( "click", ".delete-list", function() {
-      try {
         var listIndex = $(this).closest('.list').index();
-        (_userdata.list).splice(listIndex,1);
-      } catch (er){console.log(er);}
+        (_userdata.list).splice(listIndex, 1);
 
       _utils.saveAndRenderContext();
     });
 
     // Delete a card
     $contentArea.on( "click", ".delete-card", function() {
-      try {
         var listIndex = $(this).closest('.list').index(),
             cardIndex = $(this).closest('.card').index();
-        (_userdata.list[listIndex].cards).splice(cardIndex,1);
-      } catch (er){console.log(er);}
 
-      _utils.saveAndRenderContext();
+            if (listIndex !== -1){
+              (_userdata.list[listIndex].cards).splice(cardIndex,1);
+              _utils.saveAndRenderContext();
+            }
+
     });
 
 });
