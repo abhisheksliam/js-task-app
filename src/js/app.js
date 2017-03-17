@@ -1,78 +1,42 @@
 
-if (typeof GLOBALS === "undefined") {
-  var _lsm;
-  try{
-    _lsm = JSON.parse(localStorage.getItem('GLOBALS'));
-    if(_lsm) {
-      GLOBALS = _lsm
-    } else {
-      GLOBALS = {};
-    }
-  } catch(er){
-    console.log(er); GLOBALS = {};
-    alert('localStorage is not supported on client.');
-  }
-}
-
-
-// temp - setting up sample userdata, if no userdata is present
-if (!GLOBALS.userdata) {
-  GLOBALS.userdata = {
-    meta: {
-      title: "task management app"
-    },
-    list: [
-        {
-          _id: "",
-          name: "List 1",
-          modified: "",
-          cards: [
-              {
-                task:"Sample7",
-                description: "7 desc",
-                tags: [],
-                users: [],
-                completed: false
-              },
-              {
-                task:"Sample 5",
-                description: "5 desc..",
-                tags: [],
-                users: [],
-                completed: false
-              }
-            ]
-        },
-        {
-          _id: "",
-          name: "List 2",
-          modified: "",
-          cards: [
-              {
-                task:"Sample 3",
-                description: "3 desc..",
-                tags: ["tag4"],
-                users: [],
-                completed: false
-              },
-              {
-                task:"Sample 4",
-                description: "4 desc..",
-                tags: ["tag1","tag2"],
-                users: ["user1","user3"],
-                completed: false
-              }
-            ]
-        }
-    ]
-  };
-}
-
-
-
 $( function() {
 
   renderContext();
+
+  if ( GLOBALS ) {
+    GLOBALS.constants = {
+                  blankCard : {
+                    task:"Task Name",
+                    description: "Task Description",
+                    tags: [" "],
+                    users: [" "],
+                    completed: false
+                  },
+                  blankList = {
+                    _id: "",
+                    name: "List Title",
+                    modified: "",
+                    cards: []
+                  }
+              };
+    // todo: to be updated after prompting user to prefil data while adding new
+
+    GLOBALS.utils = {};
+    GLOBALS.utils.renderContext = renderContext;
+    GLOBALS.utils.applyJQuerySortable = applyJQuerySortable;
+    GLOBALS.utils.updateModel = updateModel;
+
+    GLOBALS.service = {};
+    GLOBALS.service.saveUserData = saveUserData;
+    GLOBALS.service.getUserData = getUserData;
+  } else {
+    console.log('Error in init globals.');
+  }
+
+  /* ==========================================================================
+     Finction Definitions
+     ========================================================================== */
+
   // Handlebars template handling
   function renderContext(){
     try {
@@ -82,7 +46,7 @@ $( function() {
       $('#content-area').html(theCompiledHtml);
     } catch (er) {console.log('Error in handlebars templating. ', er);}
 
-    setLSM();
+    saveUserData();
     applyJQuerySortable();
   };
 
@@ -108,39 +72,79 @@ $( function() {
         if (keyName === "users" || keyName === "tags") {val = val.split(',')};
         GLOBALS.userdata.list[listIndex].cards[cardIndex][keyName] = val;
       }
-      setLSM();
+      saveUserData();
     } catch (er) {console.log('Error in updating data model. ', er);}
-  }
+  };
 
-  function setLSM() {
+  function saveUserData(_GLOBALS) {
     try{
-      localStorage.setItem('GLOBALS', JSON.stringify(GLOBALS));
-    } catch (er) {console.log(er);}
-  }
+      if( ! _GLOBALS ) {
+        if ( GLOBALS ) { _GLOBALS = GLOBALS }
+        else { _GLOBALS = {}; }
+      }
+      localStorage.setItem('userdata', JSON.stringify(_GLOBALS.userdata));
+    } catch (er) {console.log(er);
+    alert('Error in saving userdata. Local storage might not be supported on client');}
+  };
 
-  function getLSM(){
+  function getUserData(){
    try{
-     return JSON.parse(localStorage.getItem('GLOBALS'));
-   } catch (er) {console.log(er); return {};}
+     return JSON.parse(localStorage.getItem('userdata'));
+   } catch (er) {console.log(er);
+     alert('Error in retriving userdata. Local storage might not be supported on client');}
+     return {};
+   };
+
+  }
+});
+
+/* ==========================================================================
+   Initialize userdata
+   ========================================================================== */
+
+(function initUserData(){
+    try{
+      if(GLOBALS) {
+        GLOBALS.userdata = GLOBALS.service.getUserData();
+      } else {
+        GLOBALS = {
+          userdata: {}
+        };
+      }
+    } catch(er){
+      console.log(er);
+    }
   }
 
-  GLOBALS.blankList = {
-    _id: "",
-    name: "List Title",
-    modified: "",
-    cards: []
+  // temp - setting up sample userdata for view, if no userdata is present
+  if (!(GLOBALS.userdata) {
+    GLOBALS.userdata = {
+      meta: {
+        title: "Task Management App"
+      },
+      list: [
+          {
+            _id: "",
+            name: "My Task List",
+            modified: "",
+            cards: [
+                {
+                  task:"Task 1",
+                  description: "verify features of app",
+                  tags: ['inprocess'],
+                  users: ['qa'],
+                  completed: false
+                },
+                {
+                  task:"Task 2",
+                  description: "implement new app features",
+                  tags: ['new','p2'],
+                  users: ['developer'],
+                  completed: false
+                }
+              ]
+          }
+      ]
+    };
   }
-
-  GLOBALS.blankCard = {
-    task:"Task Name",
-    description: "Task Description",
-    tags: [" "],
-    users: [" "],
-    completed: false
-  }
-
-  GLOBALS.renderContext = renderContext;
-  GLOBALS.applyJQuerySortable = applyJQuerySortable;
-  GLOBALS.updateModel = updateModel;
-
-})
+})();

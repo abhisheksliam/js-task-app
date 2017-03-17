@@ -2,7 +2,10 @@
 // jQuery helpers
 $( function() {
 
-// Content Editable
+/* ==========================================================================
+   Note: Dependent on app.js (app.js methods must be loaded before)
+   Inplace Edit - Content Editable set / reset & Model data update trigger
+   ========================================================================== */
     $( "#content-area" ).on( "click", ".title, .task, .description, .users, .tags", function() {
       console.log( $( this ).text() );
       this.contentEditable = true;
@@ -11,7 +14,6 @@ $( function() {
       this.style.outline= 'none';
       this.style['border-color']= '#9ecaed';
       this.style['box-shadow']= '0 0 10px #9ecaed';
-      // todo: while in focus - update model,lsm every n sec interval
     });
 
     $( "#content-area" ).on( "blur", ".title, .task, .description, .users, .tags", function() {
@@ -24,58 +26,52 @@ $( function() {
       this.style['box-shadow']= '';
       this.contentEditable = false;
 
-      GLOBALS.updateModel(listIndex, cardIndex, keyName, val);
+      GLOBALS.utils.updateModel(listIndex, cardIndex, keyName, val);
 
     });
+
     // todo: autocomplete for tags & user
 
 /* ==========================================================================
-   Handling User Events
+   Handling Add / Delete - List, Card - Model Update Events
    ========================================================================== */
 
     $( ".new-list" ).on( "click", function() {
-      console.log( $( this ) );
       try {
-      (GLOBALS.userdata.list).unshift(JSON.parse(JSON.stringify(GLOBALS.blankList)));
+      (GLOBALS.userdata.list).unshift(JSON.parse(JSON.stringify(GLOBALS.constants.blankList)));
       } catch (er){console.log(er);}
 
-      GLOBALS.renderContext();
+      GLOBALS.utils.renderContext();
     });
-
+    // todo: add modal to get list title
 
     $( "#content-area" ).on( "click", ".new-card", function() {
-      console.log( $( this ) );
       try {
         var listIndex = $( this ).closest('.list').index();
         (GLOBALS.userdata.list[listIndex].cards)
-                                .push(JSON.parse(JSON.stringify(GLOBALS.blankCard)));
+                                .push(JSON.parse(JSON.stringify(GLOBALS.constants.blankCard)));
       } catch (er){console.log(er);}
 
-      GLOBALS.renderContext();
+      GLOBALS.utils.renderContext();
     });
 
-
-    $( ".delete-list" ).on( "click", function() {
-      console.log( $( this ) );
+    $( "#content-area" ).on( "click", ".delete-list", function() {
       try {
         var listIndex = $(this).closest('.list').index();
         (GLOBALS.userdata.list).splice(listIndex,1);
       } catch (er){console.log(er);}
 
-      GLOBALS.renderContext();
+      GLOBALS.utils.renderContext();
     });
 
     $( "#content-area" ).on( "click", ".delete-card", function() {
-      console.log( $( this ) );
       try {
         var listIndex = $(this).closest('.list').index();
         var cardIndex = $(this).closest('.card').index();
         (GLOBALS.userdata.list[listIndex].cards).splice(cardIndex,1);
       } catch (er){console.log(er);}
 
-      GLOBALS.renderContext();
+      GLOBALS.utils.renderContext();
     });
-
-
 
 });
