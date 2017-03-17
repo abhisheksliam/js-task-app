@@ -7,7 +7,6 @@ $( function() {
    Inplace Edit - Content Editable set / reset & Model data update trigger
    ========================================================================== */
     $( "#content-area" ).on( "click", ".title, .task, .description, .users, .tags", function() {
-      console.log( $( this ).text() );
       this.contentEditable = true;
       this.focus();
       this.style.border = '1px dotted black';
@@ -17,7 +16,6 @@ $( function() {
     });
 
     $( "#content-area" ).on( "blur", ".title, .task, .description, .users, .tags", function() {
-      console.log( $( this ).text() );
       var listIndex = $(this).closest('.list').index();
       var cardIndex = $(this).closest('.card').index();
       var keyName = $( this ).attr('data-keyname').trim();
