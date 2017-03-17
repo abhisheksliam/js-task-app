@@ -19,10 +19,12 @@ gulp.task('clean', function () {
 });
 
 gulp.task('copy', function () {
-    // Copy all application files except *.less and .js into the `dist` folder
+    // Copy all application files except app *.less and .js into the `dist` folder
     return es.concat(
-        gulp.src(['src/vendor/**/*.*'])
-            .pipe(gulp.dest('dist/vendor')),
+        gulp.src(['src/js/vendor/**/*.*'])
+            .pipe(gulp.dest('dist/js/vendor')),
+        gulp.src(['src/images/*.*'])
+            .pipe(gulp.dest('dist/images')),
         gulp.src(['src/*.*'])
             .pipe(gulp.dest('dist'))
     );
@@ -39,7 +41,7 @@ gulp.task('copy-html', function () {
 gulp.task('scripts', function () {
     return es.concat(
         // Concatenate, minify and copy all JavaScript (except vendor scripts)
-        gulp.src(['src/js/app.js', 'src/js/plugins.js'])
+        gulp.src(['src/js/app.js', 'src/js/plugins.js','!src/js/vendor/**'])
             .pipe(concat('app.js'))
             // .pipe(uglify())
             .pipe(gulp.dest('dist/js'))
