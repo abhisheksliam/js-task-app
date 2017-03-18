@@ -14,7 +14,7 @@
 
 ### How to use:
 
-- add task list using top right + icon
+- add task list using top left + icon
 - add multiple cards in each list
 - delete card / list, using red cross icon
 - transfer cards from one list to other
